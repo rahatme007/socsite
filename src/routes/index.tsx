@@ -1185,3 +1185,44 @@ function FeatureHighlights() {
     </section>
   );
 }
+
+/* ─── TESTIMONIALS ──────────────────────────────────────────────── */
+function Testimonials() {
+  return (
+    <section className="border-t border-hairline bg-panel/10">
+      <div className="cf-section mx-auto max-w-7xl px-6">
+        <div className="max-w-2xl mb-12">
+          <SectionLabel>VERIFIED SIGNAL</SectionLabel>
+          <h2 className="text-4xl md:text-5xl font-display font-bold">
+            What clients report <span className="text-signal">after the re-scan.</span>
+          </h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((t) => (
+            <Panel key={t.name} className="flex flex-col gap-5">
+              <div className="flex items-center justify-between gap-4">
+                <span className="mono text-[10px] uppercase tracking-widest text-signal border border-signal/40 px-2 py-1 inline-flex items-center gap-2">
+                  <span className="live-dot" aria-hidden />
+                  VERIFIED ENGAGEMENT
+                </span>
+                <div className="text-right">
+                  <div className="mono text-signal text-xl font-bold leading-none">{t.metric}</div>
+                  <div className="mono text-[8px] uppercase tracking-widest text-muted-foreground mt-1">
+                    {t.metricLabel}
+                  </div>
+                </div>
+              </div>
+              <p className="text-base leading-relaxed text-foreground/90">“{t.quote}”</p>
+              <div className="mt-auto pt-4 border-t border-hairline">
+                <div className="font-display font-semibold text-sm">{t.name}</div>
+                <div className="mono text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
+                  {t.role}
+                </div>
+              </div>
+            </Panel>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
