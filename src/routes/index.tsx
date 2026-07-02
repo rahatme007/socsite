@@ -950,7 +950,8 @@ function SkillsMatrix() {
           Working set: <span className="text-signal">tools of the trade.</span>
         </h2>
         <p className="mt-4 text-muted-foreground">
-          Every tool here has been deployed in a real engagement or lab environment — not just listed.
+          Every tool here has been deployed in a real engagement or lab environment —
+          hover any tool to see exactly where it fits in my workflow.
         </p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -964,7 +965,9 @@ function SkillsMatrix() {
               {items.map((s) => (
                 <li
                   key={s}
-                  className="mono text-[11px] px-2 py-1 border border-hairline text-foreground/80 hover:border-signal/60 hover:text-signal transition-colors cursor-default"
+                  tabIndex={0}
+                  data-tip={toolRoles[s] ?? "Deployed in real engagements and lab environments."}
+                  className="tip mono text-[11px] px-2 py-1 border border-hairline text-foreground/80 hover:border-signal/60 hover:text-signal transition-colors cursor-default"
                 >
                   {s}
                 </li>
