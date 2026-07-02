@@ -2,7 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { Panel, SectionLabel, StatusPulse } from "@/components/site-chrome";
 import { ParticleBackground } from "@/components/particle-background";
-import { services, caseStudies, skills, certs } from "@/content/site-data";
+import {
+  services,
+  caseStudies,
+  skills,
+  certs,
+  toolRoles,
+  testimonials,
+} from "@/content/site-data";
 import {
   IconRadar,
   IconShieldLock,
@@ -34,6 +41,7 @@ function Home() {
       <AboutSnapshot />
       <ServicesOverview />
       <FeaturedWork />
+      <Testimonials />
       <Certifications />
       <SkillsMatrix />
       <BlogPreview />
@@ -92,6 +100,14 @@ function Hero() {
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
+
+          <Link
+            to="/services"
+            className="reveal mt-5 inline-flex items-center gap-2 mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-signal transition-colors"
+          >
+            <span className="live-dot" aria-hidden />
+            Free resource — Secure Web Deployment Checklist →
+          </Link>
 
           <div className="reveal mt-10 border-t border-hairline pt-5 flex flex-wrap items-center gap-6">
             <StatusPulse />
@@ -934,7 +950,8 @@ function SkillsMatrix() {
           Working set: <span className="text-signal">tools of the trade.</span>
         </h2>
         <p className="mt-4 text-muted-foreground">
-          Every tool here has been deployed in a real engagement or lab environment — not just listed.
+          Every tool here has been deployed in a real engagement or lab environment —
+          hover any tool to see exactly where it fits in my workflow.
         </p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -948,7 +965,9 @@ function SkillsMatrix() {
               {items.map((s) => (
                 <li
                   key={s}
-                  className="mono text-[11px] px-2 py-1 border border-hairline text-foreground/80 hover:border-signal/60 hover:text-signal transition-colors cursor-default"
+                  tabIndex={0}
+                  data-tip={toolRoles[s] ?? "Deployed in real engagements and lab environments."}
+                  className="tip mono text-[11px] px-2 py-1 border border-hairline text-foreground/80 hover:border-signal/60 hover:text-signal transition-colors cursor-default"
                 >
                   {s}
                 </li>
@@ -1075,6 +1094,13 @@ function CtaBand() {
             >
               View all services →
             </Link>
+            <Link
+              to="/contact"
+              className="mono text-[10px] uppercase tracking-widest inline-flex items-center justify-center gap-2 text-muted-foreground hover:text-signal transition-colors whitespace-nowrap"
+            >
+              <span className="live-dot" aria-hidden />
+              Free technical SEO audit — request one →
+            </Link>
           </div>
         </div>
       </div>
@@ -1155,6 +1181,47 @@ function FeatureHighlights() {
             </div>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── TESTIMONIALS ──────────────────────────────────────────────── */
+function Testimonials() {
+  return (
+    <section className="border-t border-hairline bg-panel/10">
+      <div className="cf-section mx-auto max-w-7xl px-6">
+        <div className="max-w-2xl mb-12">
+          <SectionLabel>VERIFIED SIGNAL</SectionLabel>
+          <h2 className="text-4xl md:text-5xl font-display font-bold">
+            What clients report <span className="text-signal">after the re-scan.</span>
+          </h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((t) => (
+            <Panel key={t.name} className="flex flex-col gap-5">
+              <div className="flex items-center justify-between gap-4">
+                <span className="mono text-[10px] uppercase tracking-widest text-signal border border-signal/40 px-2 py-1 inline-flex items-center gap-2">
+                  <span className="live-dot" aria-hidden />
+                  VERIFIED ENGAGEMENT
+                </span>
+                <div className="text-right">
+                  <div className="mono text-signal text-xl font-bold leading-none">{t.metric}</div>
+                  <div className="mono text-[8px] uppercase tracking-widest text-muted-foreground mt-1">
+                    {t.metricLabel}
+                  </div>
+                </div>
+              </div>
+              <p className="text-base leading-relaxed text-foreground/90">“{t.quote}”</p>
+              <div className="mt-auto pt-4 border-t border-hairline">
+                <div className="font-display font-semibold text-sm">{t.name}</div>
+                <div className="mono text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
+                  {t.role}
+                </div>
+              </div>
+            </Panel>
+          ))}
+        </div>
       </div>
     </section>
   );
