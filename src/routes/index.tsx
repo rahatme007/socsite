@@ -336,6 +336,10 @@ function ServicesOverview() {
         overflow: "hidden",
       }}
     >
+      {/* ── Drifting light aurora tint ── */}
+      <div aria-hidden className="aurora-bg-light" style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+      }} />
       {/* ── Hero-style cyber grid backdrop ── */}
       <div aria-hidden style={{
         position: "absolute", inset: 0, pointerEvents: "none",
