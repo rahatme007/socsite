@@ -392,12 +392,10 @@ function ServicesOverview() {
                   background: ct.cardBg,
                   borderRadius: 24,
                   boxShadow: `
-                    0 2px 4px rgba(0,0,0,0.5),
-                    0 8px 32px rgba(0,0,0,0.5),
-                    0 32px 80px -16px rgba(0,0,0,0.7),
-                    0 0 0 1px rgba(255,255,255,0.07),
-                    0 0 80px -20px ${ct.accent}60,
-                    inset 0 1px 0 rgba(255,255,255,0.06)
+                    0 1px 2px rgba(2,32,71,0.04),
+                    0 8px 24px rgba(2,132,199,0.08),
+                    0 32px 64px -24px rgba(2,132,199,0.15),
+                    0 0 0 1px rgba(0,168,204,0.10)
                   `,
                   overflow: "hidden",
                   minHeight: 480,
@@ -447,38 +445,22 @@ function ServicesOverview() {
                     position: "relative", display: "flex",
                     alignItems: "center", justifyContent: "center",
                     padding: "clamp(1rem,3vw,2rem)",
-                    borderRight: "1px solid rgba(255,255,255,0.07)",
+                    borderRight: "1px solid rgba(0,168,204,0.10)",
                     overflow: "hidden",
                     minHeight: 320,
                   }}
                 >
-                  {/* ── Dark ambient background so glass frame pops ── */}
-                  <div aria-hidden style={{
-                    position: "absolute", inset: 0,
-                    background: `radial-gradient(ellipse 100% 100% at 50% 50%, ${ct.accent}08 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.5) 100%)`,
-                    pointerEvents: "none",
-                  }} />
-                  {/* Soft accent blur ring behind the frame */}
+                  {/* ── Soft accent glow behind the floating illustration ── */}
                   <div aria-hidden style={{
                     position: "absolute", top: "50%", left: "50%",
                     transform: "translate(-50%,-50%)",
-                    width: "72%", height: "68%",
-                    background: `radial-gradient(ellipse at center, ${ct.accent}30 0%, transparent 70%)`,
-                    filter: "blur(32px)",
-                    pointerEvents: "none",
-                  }} />
-                  {/* ── Outer ambient halo ring ── */}
-                  <div aria-hidden style={{
-                    position: "absolute",
-                    top: "50%", left: "50%",
-                    transform: "translate(-50%,-50%)",
-                    width: "85%", height: "80%",
-                    borderRadius: 20,
-                    boxShadow: `0 0 60px 10px ${ct.accent}25`,
+                    width: "70%", height: "66%",
+                    background: `radial-gradient(ellipse at center, ${ct.accent}14 0%, transparent 70%)`,
+                    filter: "blur(36px)",
                     pointerEvents: "none",
                   }} />
 
-                  {/* ── Transparent image container (background-removed PNGs) ── */}
+                  {/* ── Floating transparent illustration (no frame) ── */}
                   <div style={{
                     position: "relative", zIndex: 1,
                     width: "100%", maxWidth: 370,
@@ -488,7 +470,7 @@ function ServicesOverview() {
                   }}>
                     <Illustration
                       className="w-full h-auto relative"
-                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1, filter: `drop-shadow(0 12px 32px ${ct.accent}40)` } as React.CSSProperties}
+                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1, filter: "drop-shadow(0px 20px 30px rgba(0, 168, 204, 0.15))" } as React.CSSProperties}
                     />
                   </div>
 
@@ -509,12 +491,12 @@ function ServicesOverview() {
                     position: "absolute", top: "1.25rem", right: "1.25rem",
                     fontFamily: "var(--font-mono)", fontSize: "0.55rem",
                     letterSpacing: "0.14em", textTransform: "uppercase",
-                    color: ct.accent, background: "rgba(0,0,0,0.65)",
+                    color: ct.accent, background: "rgba(255,255,255,0.85)",
                     backdropFilter: "blur(12px)",
-                    border: `1px solid ${ct.accent}55`,
+                    border: `1px solid ${ct.accent}40`,
                     padding: "0.3rem 0.75rem",
                     display: "flex", alignItems: "center", gap: "0.5rem",
-                    boxShadow: `0 0 12px -2px ${ct.accent}30, inset 0 1px 0 rgba(255,255,255,0.06)`,
+                    boxShadow: `0 2px 8px -2px ${ct.accent}25`,
                   }}>
                     <span style={{
                       width: 5, height: 5, borderRadius: "50%",
@@ -528,14 +510,14 @@ function ServicesOverview() {
                   <span aria-hidden style={{
                     position: "absolute", top: 12, left: 12,
                     width: 16, height: 16,
-                    borderTop: `1px solid ${ct.accent}70`,
-                    borderLeft: `1px solid ${ct.accent}70`,
+                    borderTop: `1px solid ${ct.accent}55`,
+                    borderLeft: `1px solid ${ct.accent}55`,
                   }} />
                   <span aria-hidden style={{
                     position: "absolute", bottom: 12, right: 12,
                     width: 16, height: 16,
-                    borderBottom: `1px solid ${ct.accent}70`,
-                    borderRight: `1px solid ${ct.accent}70`,
+                    borderBottom: `1px solid ${ct.accent}55`,
+                    borderRight: `1px solid ${ct.accent}55`,
                   }} />
                 </div>
 
