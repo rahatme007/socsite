@@ -464,39 +464,17 @@ function ServicesOverview() {
                     pointerEvents: "none",
                   }} />
 
-                  {/* ── Frosted image frame ── */}
+                  {/* ── Transparent image container (background-removed PNGs) ── */}
                   <div style={{
                     position: "relative", zIndex: 1,
                     width: "100%", maxWidth: 370,
-                    borderRadius: 16,
-                    overflow: "hidden",
-                    /* Glassmorphism container */
-                    background: `
-                      radial-gradient(ellipse 80% 75% at 50% 45%,
-                        rgba(255,255,255,0.97) 0%,
-                        rgba(255,255,255,0.90) 55%,
-                        rgba(255,255,255,0.50) 75%,
-                        transparent 100%
-                      )
-                    `,
                     padding: "1.25rem 1rem",
-                    boxShadow: [
-                      `0 0 0 1px ${ct.accent}30`,
-                      `0 4px 24px rgba(0,0,0,0.35)`,
-                      `inset 0 1px 0 rgba(255,255,255,0.6)`,
-                    ].join(","),
                     animation: isVis ? "iso-rise 0.9s cubic-bezier(0.16,1,0.3,1) both" : "none",
                     opacity: isVis ? undefined : 0,
                   }}>
-                    {/* Fade-out edges so image blends into glass frame */}
-                    <div aria-hidden style={{
-                      position: "absolute", inset: 0, zIndex: 2,
-                      borderRadius: 16, pointerEvents: "none",
-                      background: `radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(255,255,255,0.7) 80%, rgba(255,255,255,0.98) 100%)`,
-                    }} />
                     <Illustration
                       className="w-full h-auto relative"
-                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1 } as React.CSSProperties}
+                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1, filter: `drop-shadow(0 12px 32px ${ct.accent}40)` } as React.CSSProperties}
                     />
                   </div>
 
