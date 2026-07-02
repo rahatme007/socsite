@@ -769,9 +769,13 @@ function ServicesOverview() {
                 </div>
               </div>
             </div>
+            </div>
           );
         })}
       </div>
+
+      {/* ── Normal spacer between the sticky stack and the process bar ── */}
+      <div style={{ height: "5rem" }} aria-hidden />
 
       {/* ── Process bar below the cards ── */}
       <div className="cf-section mx-auto max-w-7xl px-6">
