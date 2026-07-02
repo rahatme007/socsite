@@ -1,0 +1,175 @@
+import { useEffect, useRef } from "react";
+
+type Particle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  r: number;
+  baseR: number;
+  color: string;
+  ox: number;
+  oy: number;
+};
+
+const COLORS = [
+  "rgba(45, 212, 255, 0.90)",
+  "rgba(56, 189, 248, 0.80)",
+  "rgba(125, 211, 252, 0.70)",
+  "rgba(186, 230, 253, 0.60)",
+  "rgba(203, 213, 225, 0.50)",
+  "rgba(148, 163, 184, 0.45)",
+  "rgba(0, 217, 255, 0.95)",
+];
+
+function makeParticle(width: number, height: number): Particle {
+  const r = Math.random() * 2.5 + 0.5;
+  return {
+    x: Math.random() * width,
+    y: Math.random() * height,
+    vx: (Math.random() - 0.5) * 1.2,
+    vy: (Math.random() - 0.5) * 1.2,
+    r,
+    baseR: r,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    ox: 0,
+    oy: 0,
+  };
+}
+
+export function ParticleBackground({ className = "" }: { className?: string }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let particles: Particle[] = [];
+    let raf = 0;
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    const REPULSION_RADIUS = 180;
+    const REPULSION_STRENGTH = 18;
+    const FRICTION = 0.88;
+    const DRIFT_NOISE = 0.08;
+    const CONNECTION_DIST = 100;
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const target = Math.min(500, Math.floor((width * height) / 3200));
+      particles = new Array(target).fill(0).map(() => makeParticle(width, height));
+    };
+
+    const onMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+
+    const onLeave = () => {
+      mouse.active = false;
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+
+    const step = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist2 = dx * dx + dy * dy;
+          const R = REPULSION_RADIUS;
+          if (dist2 < R * R && dist2 > 0.01) {
+            const dist = Math.sqrt(dist2);
+            const force = ((R - dist) / R) * REPULSION_STRENGTH;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
+        }
+
+        p.vx *= FRICTION;
+        p.vy *= FRICTION;
+
+        p.vx += (Math.random() - 0.5) * DRIFT_NOISE;
+        p.vy += (Math.random() - 0.5) * DRIFT_NOISE;
+
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        const maxSpeed = 14;
+        if (speed > maxSpeed) {
+          p.vx = (p.vx / speed) * maxSpeed;
+          p.vy = (p.vy / speed) * maxSpeed;
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const ddx = p.x - q.x;
+          const ddy = p.y - q.y;
+          const d2 = ddx * ddx + ddy * ddy;
+          if (d2 < CONNECTION_DIST * CONNECTION_DIST) {
+            const alpha = (1 - Math.sqrt(d2) / CONNECTION_DIST) * 0.18;
+            ctx.strokeStyle = `rgba(45, 212, 255, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      raf = requestAnimationFrame(step);
+    };
+
+    resize();
+    step();
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden
+      className={`pointer-events-none ${className}`}
+    />
+  );
+}
