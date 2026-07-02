@@ -257,9 +257,75 @@ function AboutSnapshot() {
 
 /* ─── SERVICES OVERVIEW ─────────────────────────────────────────────── */
 
+/* ── Inline-SVG floating tech accents ─────────────────────────────── */
+
+/* Card 01 (SOC): glowing cyan gear cluster */
+function GearCluster() {
+  const cyan = "#0891b2";
+  return (
+    <svg
+      width="140" height="140" viewBox="0 0 140 140" fill="none"
+      aria-hidden
+      style={{ filter: `drop-shadow(0 8px 22px ${cyan}55) drop-shadow(0 0 10px ${cyan}66)` }}
+    >
+      <g style={{ transformOrigin: "52px 60px", animation: "float-y 7s ease-in-out infinite" }}>
+        <g style={{ transformOrigin: "52px 60px", animation: "gear-spin 14s linear infinite" }}>
+          <path
+            d="M52 30l4.5 1 3-3.5 4 2.4-1 4.4 3.2 3.2 4.4-1 2.4 4-3.5 3 1 4.5-1 4.5 3.5 3-2.4 4-4.4-1-3.2 3.2 1 4.4-4 2.4-3-3.5-4.5 1-4.5-1-3 3.5-4-2.4 1-4.4-3.2-3.2-4.4 1-2.4-4 3.5-3-1-4.5 1-4.5-3.5-3 2.4-4 4.4 1 3.2-3.2-1-4.4 4-2.4 3 3.5z"
+            fill="none" stroke={cyan} strokeWidth="2.5" strokeLinejoin="round"
+          />
+          <circle cx="52" cy="60" r="12" fill="none" stroke={cyan} strokeWidth="2.5" />
+          <circle cx="52" cy="60" r="4" fill={cyan} />
+        </g>
+      </g>
+      <g style={{ transformOrigin: "100px 96px", animation: "float-y 5.5s ease-in-out infinite" }}>
+        <g style={{ transformOrigin: "100px 96px", animation: "gear-spin-rev 9s linear infinite" }}>
+          <path
+            d="M100 78l3 .8 2-2.4 2.8 1.7-.7 3 2.2 2.2 3-.7 1.7 2.8-2.4 2 .8 3-.8 3 2.4 2-1.7 2.8-3-.7-2.2 2.2.7 3-2.8 1.7-2-2.4-3 .8-3-.8-2 2.4-2.8-1.7.7-3-2.2-2.2-3 .7-1.7-2.8 2.4-2-.8-3 .8-3-2.4-2 1.7-2.8 3 .7 2.2-2.2-.7-3 2.8-1.7 2 2.4z"
+            fill="none" stroke={cyan} strokeWidth="2.2" strokeLinejoin="round"
+          />
+          <circle cx="100" cy="96" r="8" fill="none" stroke={cyan} strokeWidth="2.2" />
+          <circle cx="100" cy="96" r="3" fill={cyan} />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+/* Card 02 (Secure Web Deployment): glowing red cyber shield + padlock */
+function CyberShield() {
+  const red = "#ef4444";
+  return (
+    <svg
+      width="96" height="112" viewBox="0 0 96 112" fill="none"
+      aria-hidden
+      style={{
+        filter: `drop-shadow(0 10px 24px ${red}55) drop-shadow(0 0 12px ${red}77)`,
+        animation: "float-y 6s ease-in-out infinite",
+      }}
+    >
+      <defs>
+        <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(239,68,68,0.28)" />
+          <stop offset="100%" stopColor="rgba(239,68,68,0.06)" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M48 6l34 13v24c0 26-15 44-34 57C29 87 14 69 14 43V19L48 6z"
+        fill="url(#shieldFill)" stroke={red} strokeWidth="3" strokeLinejoin="round"
+      />
+      <rect x="36" y="50" width="24" height="20" rx="3" fill="none" stroke={red} strokeWidth="3" />
+      <path d="M40 50v-6a8 8 0 0 1 16 0v6" fill="none" stroke={red} strokeWidth="3" />
+      <circle cx="48" cy="58" r="3" fill={red} />
+      <rect x="46.5" y="58" width="3" height="7" fill={red} />
+    </svg>
+  );
+}
+
 /* Per-card light theme + accent colour values.
    ink   = deep-navy heading colour, body = slate description colour,
-   accent = text-safe accent used for badges/bullets/watermark. */
+   accent = text-safe accent used for badges/bullets/watermark.
+   floatEl = optional inline-SVG accent that overlaps the frame. */
 const SVC_THEMES = [
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
