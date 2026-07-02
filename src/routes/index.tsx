@@ -479,7 +479,7 @@ function ServicesOverview() {
                     position: "absolute", bottom: "1rem", left: "1.25rem",
                     fontFamily: "var(--font-display)",
                     fontSize: "clamp(3.5rem,9vw,7rem)",
-                    fontWeight: 800, color: ct.accent, lineHeight: 1,
+                    fontWeight: 800, color: "rgba(2,35,71,0.06)", lineHeight: 1,
                     pointerEvents: "none", userSelect: "none", zIndex: 0,
                     animation: isVis ? "num-pop 1s cubic-bezier(0.16,1,0.3,1) both" : "none",
                     opacity: isVis ? undefined : 0,
@@ -554,7 +554,7 @@ function ServicesOverview() {
                     fontFamily: "var(--font-display)",
                     fontSize: "clamp(1.6rem,3.2vw,2.6rem)",
                     fontWeight: 800, lineHeight: 1.1,
-                    color: "#ffffff", letterSpacing: "-0.02em", margin: 0,
+                    color: ct.ink, letterSpacing: "-0.02em", margin: 0,
                     animation: isVis ? "clip-reveal-x 0.6s 0.18s cubic-bezier(0.16,1,0.3,1) both" : "none",
                   }}>
                     {svc.title}
@@ -562,7 +562,7 @@ function ServicesOverview() {
 
                   {/* body */}
                   <p style={{
-                    color: "rgba(255,255,255,0.58)", lineHeight: 1.75,
+                    color: ct.body, lineHeight: 1.75,
                     fontSize: "0.92rem", maxWidth: "40ch", margin: 0,
                     animation: isVis ? "svc-enter 0.55s 0.24s cubic-bezier(0.16,1,0.3,1) both" : "none",
                   }}>
@@ -587,7 +587,7 @@ function ServicesOverview() {
                           marginTop: "0.45rem", width: 16, height: 4,
                           background: `${ct.accent}cc`, flexShrink: 0, display: "block",
                         }} />
-                        <span style={{ color: "rgba(255,255,255,0.82)" }}>{b}</span>
+                        <span style={{ color: ct.bullet }}>{b}</span>
                       </li>
                     ))}
                   </ul>
@@ -596,7 +596,7 @@ function ServicesOverview() {
                   <div style={{
                     display: "flex", alignItems: "center", gap: "1.25rem",
                     paddingTop: "1rem", marginTop: "0.25rem",
-                    borderTop: "1px solid rgba(255,255,255,0.1)",
+                    borderTop: "1px solid rgba(2,35,71,0.10)",
                     animation: isVis ? `svc-enter 0.5s 0.52s cubic-bezier(0.16,1,0.3,1) both` : "none",
                   }}>
                     <Link
@@ -614,7 +614,7 @@ function ServicesOverview() {
                     </Link>
                     <span style={{
                       fontFamily: "var(--font-mono)", fontSize: "0.58rem",
-                      color: "rgba(255,255,255,0.28)", letterSpacing: "0.1em",
+                      color: "rgba(2,35,71,0.35)", letterSpacing: "0.1em",
                     }}>
                       {svc.index} / 04
                     </span>
