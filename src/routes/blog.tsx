@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Panel, SectionLabel } from "@/components/site-chrome";
+import { SectionLabel } from "@/components/site-chrome";
 
 // TODO: replace with your Medium feed URL, e.g. https://medium.com/feed/@yourhandle
 const MEDIUM_FEED = "https://medium.com/feed/@medium";
@@ -28,12 +28,14 @@ async function fetchFeed(): Promise<RssItem[]> {
   return data.items;
 }
 
-function stripHtml(html: string) {
+function stripHtml(html?: string) {
+  if (!html) return "";
   return html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 }
 
-function readTime(html: string) {
-  const words = stripHtml(html).split(" ").length;
+function readTime(html?: string) {
+  const text = stripHtml(html);
+  const words = text ? text.split(" ").length : 0;
   return `${Math.max(1, Math.round(words / 220))} min`;
 }
 
@@ -166,6 +168,3 @@ function LoadingSkeleton() {
     </>
   );
 }
-
-// unused, keep Panel import for reference
-export const _panel = Panel;
