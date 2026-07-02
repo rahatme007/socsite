@@ -557,18 +557,58 @@ function ServicesOverview() {
                     pointerEvents: "none",
                   }} />
 
-                  {/* ── Floating transparent illustration (no frame) ── */}
+                  {/* ── Glassmorphism illustration frame + floating accent ── */}
                   <div style={{
                     position: "relative", zIndex: 1,
-                    width: "100%", maxWidth: 370,
-                    padding: "1.25rem 1rem",
+                    width: "100%", maxWidth: 380,
                     animation: isVis ? "iso-rise 0.9s cubic-bezier(0.16,1,0.3,1) both" : "none",
                     opacity: isVis ? undefined : 0,
                   }}>
-                    <Illustration
-                      className="w-full h-auto relative"
-                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1, filter: "drop-shadow(0px 20px 30px rgba(0, 168, 204, 0.15))" } as React.CSSProperties}
-                    />
+                    {/* glass card */}
+                    <div style={{
+                      position: "relative",
+                      borderRadius: 16,
+                      border: "1px solid rgba(0, 168, 204, 0.3)",
+                      background: "linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(240,249,255,0.35) 100%)",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                      boxShadow: `inset 0 1px 0 rgba(255,255,255,0.6), 0 12px 30px -10px ${ct.accent}30`,
+                      padding: "1.75rem 1.25rem 1.25rem",
+                      overflow: "visible",
+                    }}>
+                      {/* glowing status badge (top-center) */}
+                      <div style={{
+                        position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)",
+                        display: "inline-flex", alignItems: "center", gap: "0.4rem",
+                        fontFamily: "var(--font-mono)", fontSize: "0.55rem",
+                        letterSpacing: "0.16em", textTransform: "uppercase", whiteSpace: "nowrap",
+                        color: ct.accent, background: "rgba(255,255,255,0.92)",
+                        border: `1px solid ${ct.accent}55`, borderRadius: 999,
+                        padding: "0.28rem 0.8rem",
+                        boxShadow: `0 2px 10px -2px ${ct.accent}55, 0 0 0 3px rgba(255,255,255,0.6)`,
+                        zIndex: 4,
+                      }}>
+                        <span style={{
+                          width: 6, height: 6, borderRadius: "50%", background: ct.accent,
+                          boxShadow: `0 0 6px ${ct.accent}, 0 0 12px ${ct.accent}`, display: "inline-block",
+                        }} />
+                        SYS // ACTIVE
+                      </div>
+
+                      <Illustration
+                        className="w-full h-auto relative"
+                        style={{ display: "block", maxHeight: 260, position: "relative", zIndex: 1, filter: "drop-shadow(0px 20px 30px rgba(0, 168, 204, 0.15))" } as React.CSSProperties}
+                      />
+                    </div>
+
+                    {/* floating 3D-style SVG accent overlapping the frame */}
+                    {ct.floatEl && (
+                      <div aria-hidden style={{
+                        position: "absolute", zIndex: 3, pointerEvents: "none", ...ct.floatPos,
+                      }}>
+                        {ct.floatEl}
+                      </div>
+                    )}
                   </div>
 
                   {/* number watermark (behind frame) */}
