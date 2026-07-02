@@ -667,11 +667,12 @@ function ServicesOverview() {
                   {/* badge / tagline */}
                   <div style={{
                     display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                    border: `1px solid ${ct.accent}55`, color: ct.accent,
-                    background: `${ct.accent}14`,
-                    padding: "0.3rem 0.85rem", borderRadius: 999,
+                    border: `1px solid ${ct.accent}66`, color: ct.accent,
+                    background: "rgba(255,255,255,0.7)",
+                    padding: "0.35rem 0.9rem", borderRadius: 999,
                     fontSize: "0.6rem", fontFamily: "var(--font-mono)",
                     letterSpacing: "0.18em", textTransform: "uppercase", width: "fit-content",
+                    boxShadow: `0 2px 8px -3px ${ct.accent}30`,
                     animation: isVis ? "tagline-in 0.55s 0.12s cubic-bezier(0.16,1,0.3,1) both" : "none",
                   }}>
                     <span style={{
@@ -717,10 +718,10 @@ function ServicesOverview() {
                           : "none",
                         opacity: isVis ? undefined : 0,
                       }}>
-                        <span style={{
-                          marginTop: "0.45rem", width: 16, height: 4,
-                          background: `${ct.accent}cc`, flexShrink: 0, display: "block",
-                        }} />
+                        <span aria-hidden style={{
+                          color: ct.accent, fontWeight: 700, lineHeight: 1.4,
+                          flexShrink: 0, fontFamily: "var(--font-mono)",
+                        }}>—</span>
                         <span style={{ color: ct.bullet }}>{b}</span>
                       </li>
                     ))}
