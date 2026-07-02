@@ -464,20 +464,32 @@ function ServicesOverview() {
         </p>
       </div>
 
-      {/* ── Sticky card stack ── */}
-      <div style={{ height: `${services.length * 90}vh`, position: "relative" }}>
+      {/* ── Sticky card stack ──
+         Each card lives in a per-card "scroll step" spacer that drives the
+         track height. Every step except the last reserves SCROLL_STEP of
+         scroll travel; the last step collapses to the card's own height so
+         there is no dead space after card 04. The track sets no fixed
+         height, so it can never over-allocate. */}
+      <div style={{ position: "relative" }}>
         {services.map((svc, i) => {
           const ct = SVC_THEMES[i];
           const { Illustration, SmallIcon } = ct;
           const isVis = visible.has(i);
+          const isLast = i === services.length - 1;
+          const SCROLL_STEP = "78vh";
 
           return (
             <div
               key={svc.slug}
+              style={{
+                height: isLast ? "auto" : SCROLL_STEP,
+              }}
+            >
+            <div
               ref={(el) => { cardRefs.current[i] = el; }}
               style={{
                 position: "sticky",
-                top: `${6 + i * 3.5}vh`,
+                top: "12vh",
                 zIndex: 10 + i,
                 padding: "0 clamp(1rem, 3vw, 1.5rem)",
                 maxWidth: "88rem",
