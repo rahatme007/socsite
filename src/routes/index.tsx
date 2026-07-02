@@ -41,6 +41,7 @@ function Home() {
       <AboutSnapshot />
       <ServicesOverview />
       <FeaturedWork />
+      <Testimonials />
       <Certifications />
       <SkillsMatrix />
       <BlogPreview />
