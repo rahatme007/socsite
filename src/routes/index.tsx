@@ -257,33 +257,47 @@ function AboutSnapshot() {
 
 /* ─── SERVICES OVERVIEW ─────────────────────────────────────────────── */
 
-/* Per-card dark gradient theme + accent colour values */
+/* Per-card light theme + accent colour values.
+   ink   = deep-navy heading colour, body = slate description colour,
+   accent = text-safe accent used for badges/bullets/watermark. */
 const SVC_THEMES = [
   {
-    cardBg: "linear-gradient(135deg, #021420 0%, #032233 60%, #010c14 100%)",
-    accent: "#00D9FF",
-    gridColor: "rgba(0,217,255,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0891b2",
+    ink: "#0f172a",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(0,168,204,0.08)",
     Illustration: IllustrationSOC,
     SmallIcon: IconEye,
   },
   {
-    cardBg: "linear-gradient(135deg, #1c1100 0%, #2e1b00 60%, #110a00 100%)",
-    accent: "#FF9A3C",
-    gridColor: "rgba(255,154,60,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0284c7",
+    ink: "#022347",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(2,132,199,0.08)",
     Illustration: IllustrationWebDeploy,
     SmallIcon: IconSecureGlobe,
   },
   {
-    cardBg: "linear-gradient(135deg, #01180a 0%, #022910 60%, #010e05 100%)",
-    accent: "#4ade80",
-    gridColor: "rgba(74,222,128,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0891b2",
+    ink: "#0f172a",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(0,168,204,0.08)",
     Illustration: IllustrationSEO,
     SmallIcon: IconSignal,
   },
   {
-    cardBg: "linear-gradient(135deg, #0d0520 0%, #1b0d3c 60%, #070210 100%)",
-    accent: "#a78bfa",
-    gridColor: "rgba(167,139,250,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0284c7",
+    ink: "#022347",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(2,132,199,0.08)",
     Illustration: IllustrationAI,
     SmallIcon: IconAISecure,
   },
@@ -314,20 +328,44 @@ function ServicesOverview() {
 
   return (
     <section
-      className="border-t border-hairline aurora-bg"
-      style={{ background: "var(--background)", position: "relative" }}
+      className="border-t"
+      style={{
+        background: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+        borderColor: "rgba(0,168,204,0.12)",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      {/* ── Ambient glows ── */}
+      {/* ── Drifting light aurora tint ── */}
+      <div aria-hidden className="aurora-bg-light" style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+      }} />
+      {/* ── Hero-style cyber grid backdrop ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage:
+          "linear-gradient(to right, rgba(2,132,199,0.06) 1px, transparent 1px)," +
+          "linear-gradient(to bottom, rgba(2,132,199,0.06) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+        maskImage: "radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 80%)",
+        WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 80%)",
+      }} />
+      {/* ── Subtle dotted node / connector network ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage:
+          "radial-gradient(circle at 18% 25%, rgba(0,168,204,0.16) 0, transparent 2px)," +
+          "radial-gradient(circle at 72% 38%, rgba(0,168,204,0.14) 0, transparent 2px)," +
+          "radial-gradient(circle at 42% 78%, rgba(0,168,204,0.12) 0, transparent 2px)," +
+          "linear-gradient(115deg, transparent 49.6%, rgba(0,168,204,0.05) 49.6%, rgba(0,168,204,0.05) 50.4%, transparent 50.4%)",
+        backgroundSize: "320px 320px, 280px 280px, 360px 360px, 200px 200px",
+        opacity: 0.7,
+      }} />
+      {/* ── Soft top glow to blend into the hero ── */}
       <div aria-hidden style={{
         position: "absolute", top: 0, left: "25%",
-        width: 600, height: 600,
-        background: "radial-gradient(circle, rgba(0,217,255,0.05) 0%, transparent 70%)",
-        filter: "blur(60px)", pointerEvents: "none",
-      }} />
-      <div aria-hidden style={{
-        position: "absolute", top: "30%", right: "10%",
-        width: 400, height: 400,
-        background: "radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%)",
+        width: 600, height: 500,
+        background: "radial-gradient(circle, rgba(0,168,204,0.08) 0%, transparent 70%)",
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
@@ -341,11 +379,14 @@ function ServicesOverview() {
           <span className="mono text-[11px] uppercase tracking-[0.3em] text-signal">CAPABILITIES</span>
           <span className="w-8 h-px bg-signal opacity-70" />
         </div>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold">
+        <h2
+          className="text-4xl md:text-5xl lg:text-6xl font-display font-bold"
+          style={{ color: "#0f172a" }}
+        >
           Four Disciplines.<br />
-          <span className="text-signal">One Security-First Standard.</span>
+          <span style={{ color: "#0891b2" }}>One Security-First Standard.</span>
         </h2>
-        <p className="mt-4 text-muted-foreground text-lg leading-relaxed max-w-2xl">
+        <p className="mt-4 text-lg leading-relaxed max-w-2xl" style={{ color: "#475569" }}>
           Every engagement is held to the same principle: nothing ships until it's been
           evaluated the way an attacker would evaluate it. Scroll through to see how.
         </p>
@@ -378,12 +419,10 @@ function ServicesOverview() {
                   background: ct.cardBg,
                   borderRadius: 24,
                   boxShadow: `
-                    0 2px 4px rgba(0,0,0,0.5),
-                    0 8px 32px rgba(0,0,0,0.5),
-                    0 32px 80px -16px rgba(0,0,0,0.7),
-                    0 0 0 1px rgba(255,255,255,0.07),
-                    0 0 80px -20px ${ct.accent}60,
-                    inset 0 1px 0 rgba(255,255,255,0.06)
+                    0 1px 2px rgba(2,32,71,0.04),
+                    0 8px 24px rgba(2,132,199,0.08),
+                    0 32px 64px -24px rgba(2,132,199,0.15),
+                    0 0 0 1px rgba(0,168,204,0.10)
                   `,
                   overflow: "hidden",
                   minHeight: 480,
@@ -420,7 +459,7 @@ function ServicesOverview() {
                   }}>
                     <div style={{
                       position: "absolute", top: 0, bottom: 0, width: 280,
-                      background: `linear-gradient(to right,transparent,${ct.accent}50,transparent)`,
+                      background: `linear-gradient(to right,transparent,${ct.accent}22,transparent)`,
                       animation: "scan-h 0.9s cubic-bezier(0.4,0,0.6,1) both",
                     }} />
                   </div>
@@ -433,70 +472,32 @@ function ServicesOverview() {
                     position: "relative", display: "flex",
                     alignItems: "center", justifyContent: "center",
                     padding: "clamp(1rem,3vw,2rem)",
-                    borderRight: "1px solid rgba(255,255,255,0.07)",
+                    borderRight: "1px solid rgba(0,168,204,0.10)",
                     overflow: "hidden",
                     minHeight: 320,
                   }}
                 >
-                  {/* ── Dark ambient background so glass frame pops ── */}
-                  <div aria-hidden style={{
-                    position: "absolute", inset: 0,
-                    background: `radial-gradient(ellipse 100% 100% at 50% 50%, ${ct.accent}08 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.5) 100%)`,
-                    pointerEvents: "none",
-                  }} />
-                  {/* Soft accent blur ring behind the frame */}
+                  {/* ── Soft accent glow behind the floating illustration ── */}
                   <div aria-hidden style={{
                     position: "absolute", top: "50%", left: "50%",
                     transform: "translate(-50%,-50%)",
-                    width: "72%", height: "68%",
-                    background: `radial-gradient(ellipse at center, ${ct.accent}30 0%, transparent 70%)`,
-                    filter: "blur(32px)",
-                    pointerEvents: "none",
-                  }} />
-                  {/* ── Outer ambient halo ring ── */}
-                  <div aria-hidden style={{
-                    position: "absolute",
-                    top: "50%", left: "50%",
-                    transform: "translate(-50%,-50%)",
-                    width: "85%", height: "80%",
-                    borderRadius: 20,
-                    boxShadow: `0 0 60px 10px ${ct.accent}25`,
+                    width: "70%", height: "66%",
+                    background: `radial-gradient(ellipse at center, ${ct.accent}14 0%, transparent 70%)`,
+                    filter: "blur(36px)",
                     pointerEvents: "none",
                   }} />
 
-                  {/* ── Frosted image frame ── */}
+                  {/* ── Floating transparent illustration (no frame) ── */}
                   <div style={{
                     position: "relative", zIndex: 1,
                     width: "100%", maxWidth: 370,
-                    borderRadius: 16,
-                    overflow: "hidden",
-                    /* Glassmorphism container */
-                    background: `
-                      radial-gradient(ellipse 80% 75% at 50% 45%,
-                        rgba(255,255,255,0.97) 0%,
-                        rgba(255,255,255,0.90) 55%,
-                        rgba(255,255,255,0.50) 75%,
-                        transparent 100%
-                      )
-                    `,
                     padding: "1.25rem 1rem",
-                    boxShadow: [
-                      `0 0 0 1px ${ct.accent}30`,
-                      `0 4px 24px rgba(0,0,0,0.35)`,
-                      `inset 0 1px 0 rgba(255,255,255,0.6)`,
-                    ].join(","),
                     animation: isVis ? "iso-rise 0.9s cubic-bezier(0.16,1,0.3,1) both" : "none",
                     opacity: isVis ? undefined : 0,
                   }}>
-                    {/* Fade-out edges so image blends into glass frame */}
-                    <div aria-hidden style={{
-                      position: "absolute", inset: 0, zIndex: 2,
-                      borderRadius: 16, pointerEvents: "none",
-                      background: `radial-gradient(ellipse 90% 85% at 50% 50%, transparent 55%, rgba(255,255,255,0.7) 80%, rgba(255,255,255,0.98) 100%)`,
-                    }} />
                     <Illustration
                       className="w-full h-auto relative"
-                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1 } as React.CSSProperties}
+                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1, filter: "drop-shadow(0px 20px 30px rgba(0, 168, 204, 0.15))" } as React.CSSProperties}
                     />
                   </div>
 
@@ -505,7 +506,7 @@ function ServicesOverview() {
                     position: "absolute", bottom: "1rem", left: "1.25rem",
                     fontFamily: "var(--font-display)",
                     fontSize: "clamp(3.5rem,9vw,7rem)",
-                    fontWeight: 800, color: ct.accent, lineHeight: 1,
+                    fontWeight: 800, color: "rgba(2,35,71,0.06)", lineHeight: 1,
                     pointerEvents: "none", userSelect: "none", zIndex: 0,
                     animation: isVis ? "num-pop 1s cubic-bezier(0.16,1,0.3,1) both" : "none",
                     opacity: isVis ? undefined : 0,
@@ -517,12 +518,12 @@ function ServicesOverview() {
                     position: "absolute", top: "1.25rem", right: "1.25rem",
                     fontFamily: "var(--font-mono)", fontSize: "0.55rem",
                     letterSpacing: "0.14em", textTransform: "uppercase",
-                    color: ct.accent, background: "rgba(0,0,0,0.65)",
+                    color: ct.accent, background: "rgba(255,255,255,0.85)",
                     backdropFilter: "blur(12px)",
-                    border: `1px solid ${ct.accent}55`,
+                    border: `1px solid ${ct.accent}40`,
                     padding: "0.3rem 0.75rem",
                     display: "flex", alignItems: "center", gap: "0.5rem",
-                    boxShadow: `0 0 12px -2px ${ct.accent}30, inset 0 1px 0 rgba(255,255,255,0.06)`,
+                    boxShadow: `0 2px 8px -2px ${ct.accent}25`,
                   }}>
                     <span style={{
                       width: 5, height: 5, borderRadius: "50%",
@@ -536,14 +537,14 @@ function ServicesOverview() {
                   <span aria-hidden style={{
                     position: "absolute", top: 12, left: 12,
                     width: 16, height: 16,
-                    borderTop: `1px solid ${ct.accent}70`,
-                    borderLeft: `1px solid ${ct.accent}70`,
+                    borderTop: `1px solid ${ct.accent}55`,
+                    borderLeft: `1px solid ${ct.accent}55`,
                   }} />
                   <span aria-hidden style={{
                     position: "absolute", bottom: 12, right: 12,
                     width: 16, height: 16,
-                    borderBottom: `1px solid ${ct.accent}70`,
-                    borderRight: `1px solid ${ct.accent}70`,
+                    borderBottom: `1px solid ${ct.accent}55`,
+                    borderRight: `1px solid ${ct.accent}55`,
                   }} />
                 </div>
 
@@ -580,7 +581,7 @@ function ServicesOverview() {
                     fontFamily: "var(--font-display)",
                     fontSize: "clamp(1.6rem,3.2vw,2.6rem)",
                     fontWeight: 800, lineHeight: 1.1,
-                    color: "#ffffff", letterSpacing: "-0.02em", margin: 0,
+                    color: ct.ink, letterSpacing: "-0.02em", margin: 0,
                     animation: isVis ? "clip-reveal-x 0.6s 0.18s cubic-bezier(0.16,1,0.3,1) both" : "none",
                   }}>
                     {svc.title}
@@ -588,7 +589,7 @@ function ServicesOverview() {
 
                   {/* body */}
                   <p style={{
-                    color: "rgba(255,255,255,0.58)", lineHeight: 1.75,
+                    color: ct.body, lineHeight: 1.75,
                     fontSize: "0.92rem", maxWidth: "40ch", margin: 0,
                     animation: isVis ? "svc-enter 0.55s 0.24s cubic-bezier(0.16,1,0.3,1) both" : "none",
                   }}>
@@ -613,7 +614,7 @@ function ServicesOverview() {
                           marginTop: "0.45rem", width: 16, height: 4,
                           background: `${ct.accent}cc`, flexShrink: 0, display: "block",
                         }} />
-                        <span style={{ color: "rgba(255,255,255,0.82)" }}>{b}</span>
+                        <span style={{ color: ct.bullet }}>{b}</span>
                       </li>
                     ))}
                   </ul>
@@ -622,7 +623,7 @@ function ServicesOverview() {
                   <div style={{
                     display: "flex", alignItems: "center", gap: "1.25rem",
                     paddingTop: "1rem", marginTop: "0.25rem",
-                    borderTop: "1px solid rgba(255,255,255,0.1)",
+                    borderTop: "1px solid rgba(2,35,71,0.10)",
                     animation: isVis ? `svc-enter 0.5s 0.52s cubic-bezier(0.16,1,0.3,1) both` : "none",
                   }}>
                     <Link
@@ -640,7 +641,7 @@ function ServicesOverview() {
                     </Link>
                     <span style={{
                       fontFamily: "var(--font-mono)", fontSize: "0.58rem",
-                      color: "rgba(255,255,255,0.28)", letterSpacing: "0.1em",
+                      color: "rgba(2,35,71,0.35)", letterSpacing: "0.1em",
                     }}>
                       {svc.index} / 04
                     </span>

@@ -29,7 +29,7 @@ export function IllustrationSOC({ className = "", style }: SceneProps) {
       }}
     >
       <img
-        src="/svc-img1.png"
+        src="/1.png"
         alt="SOC & Cybersecurity — security analyst and shield"
         style={imgStyle}
         loading="lazy"
@@ -54,7 +54,7 @@ export function IllustrationWebDeploy({ className = "", style }: SceneProps) {
       }}
     >
       <img
-        src="/svc-img2.png"
+        src="/2.png"
         alt="Secure Web Deployment — shield with lock and team"
         style={imgStyle}
         loading="lazy"
@@ -79,7 +79,7 @@ export function IllustrationSEO({ className = "", style }: SceneProps) {
       }}
     >
       <img
-        src="/svc-img3.png"
+        src="/3.png"
         alt="Technical SEO — developer monitoring performance dashboard"
         style={imgStyle}
         loading="lazy"
@@ -104,7 +104,7 @@ export function IllustrationAI({ className = "", style }: SceneProps) {
       }}
     >
       <img
-        src="/svc-img4.png"
+        src="/4.png"
         alt="Secure AI Agents — developers building an AI robot"
         style={imgStyle}
         loading="lazy"
