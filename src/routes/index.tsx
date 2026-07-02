@@ -464,8 +464,10 @@ function ServicesOverview() {
         </p>
       </div>
 
-      {/* ── Sticky card stack ── */}
-      <div style={{ height: `${services.length * 90}vh`, position: "relative" }}>
+      {/* ── Sticky card stack ──
+         Reserve scroll height per transition ((n-1) * step) plus the final
+         card's own height, so there is no empty gap after the last card. */}
+      <div style={{ height: `calc(${(services.length - 1) * 78}vh + 520px)`, position: "relative" }}>
         {services.map((svc, i) => {
           const ct = SVC_THEMES[i];
           const { Illustration, SmallIcon } = ct;
