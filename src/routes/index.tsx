@@ -209,7 +209,7 @@ const ABOUT_HIGHLIGHTS = [
 
 function AboutSnapshot() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+    <section className="cf-section mx-auto max-w-7xl px-6">
       <div className="grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <SectionLabel>ABOUT</SectionLabel>
@@ -332,7 +332,10 @@ function ServicesOverview() {
       }} />
 
       {/* ── Section header ── */}
-      <div className="mx-auto max-w-7xl px-6 pt-20 pb-16 md:pt-28 relative">
+      <div
+        className="mx-auto max-w-7xl px-6 pb-16 relative"
+        style={{ paddingTop: "var(--cf-section-gap-lg)" }}
+      >
         <div className="inline-flex items-center gap-3 mb-4">
           <span className="w-8 h-px bg-signal opacity-70" />
           <span className="mono text-[11px] uppercase tracking-[0.3em] text-signal">CAPABILITIES</span>
@@ -650,7 +653,7 @@ function ServicesOverview() {
       </div>
 
       {/* ── Process bar below the cards ── */}
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
+      <div className="cf-section mx-auto max-w-7xl px-6">
         <ProcessBar />
       </div>
     </section>
@@ -703,7 +706,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 function FeaturedWork() {
   const featured = caseStudies.slice(0, 3);
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:py-32 border-t border-hairline">
+    <section className="cf-section mx-auto max-w-7xl px-6 border-t border-hairline">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
         <div>
           <SectionLabel>FIELD WORK</SectionLabel>
@@ -766,7 +769,7 @@ const CERT_DETAILS: Record<string, { Icon: IconComponent; issuer: string; border
 function Certifications() {
   return (
     <section className="border-t border-hairline bg-panel/20">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+      <div className="cf-section-md mx-auto max-w-7xl px-6">
         <div className="text-center mb-12">
           <SectionLabel>CREDENTIALS</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-display font-bold">
@@ -799,7 +802,7 @@ function Certifications() {
 /* ─── SKILLS MATRIX ─────────────────────────────────────────────────── */
 function SkillsMatrix() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:py-32 border-t border-hairline">
+    <section className="cf-section mx-auto max-w-7xl px-6 border-t border-hairline">
       <div className="max-w-3xl mb-12">
         <SectionLabel>STACK MATRIX</SectionLabel>
         <h2 className="text-4xl md:text-5xl font-display font-bold">
@@ -861,7 +864,7 @@ const BLOG_POSTS = [
 function BlogPreview() {
   return (
     <section className="border-t border-hairline bg-panel/10">
-      <div className="mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <div className="cf-section mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
           <div>
             <SectionLabel>FIELD NOTES</SectionLabel>
