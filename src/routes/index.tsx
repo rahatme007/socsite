@@ -257,9 +257,75 @@ function AboutSnapshot() {
 
 /* ─── SERVICES OVERVIEW ─────────────────────────────────────────────── */
 
+/* ── Inline-SVG floating tech accents ─────────────────────────────── */
+
+/* Card 01 (SOC): glowing cyan gear cluster */
+function GearCluster() {
+  const cyan = "#0891b2";
+  return (
+    <svg
+      width="140" height="140" viewBox="0 0 140 140" fill="none"
+      aria-hidden
+      style={{ filter: `drop-shadow(0 8px 22px ${cyan}55) drop-shadow(0 0 10px ${cyan}66)` }}
+    >
+      <g style={{ transformOrigin: "52px 60px", animation: "float-y 7s ease-in-out infinite" }}>
+        <g style={{ transformOrigin: "52px 60px", animation: "gear-spin 14s linear infinite" }}>
+          <path
+            d="M52 30l4.5 1 3-3.5 4 2.4-1 4.4 3.2 3.2 4.4-1 2.4 4-3.5 3 1 4.5-1 4.5 3.5 3-2.4 4-4.4-1-3.2 3.2 1 4.4-4 2.4-3-3.5-4.5 1-4.5-1-3 3.5-4-2.4 1-4.4-3.2-3.2-4.4 1-2.4-4 3.5-3-1-4.5 1-4.5-3.5-3 2.4-4 4.4 1 3.2-3.2-1-4.4 4-2.4 3 3.5z"
+            fill="none" stroke={cyan} strokeWidth="2.5" strokeLinejoin="round"
+          />
+          <circle cx="52" cy="60" r="12" fill="none" stroke={cyan} strokeWidth="2.5" />
+          <circle cx="52" cy="60" r="4" fill={cyan} />
+        </g>
+      </g>
+      <g style={{ transformOrigin: "100px 96px", animation: "float-y 5.5s ease-in-out infinite" }}>
+        <g style={{ transformOrigin: "100px 96px", animation: "gear-spin-rev 9s linear infinite" }}>
+          <path
+            d="M100 78l3 .8 2-2.4 2.8 1.7-.7 3 2.2 2.2 3-.7 1.7 2.8-2.4 2 .8 3-.8 3 2.4 2-1.7 2.8-3-.7-2.2 2.2.7 3-2.8 1.7-2-2.4-3 .8-3-.8-2 2.4-2.8-1.7.7-3-2.2-2.2-3 .7-1.7-2.8 2.4-2-.8-3 .8-3-2.4-2 1.7-2.8 3 .7 2.2-2.2-.7-3 2.8-1.7 2 2.4z"
+            fill="none" stroke={cyan} strokeWidth="2.2" strokeLinejoin="round"
+          />
+          <circle cx="100" cy="96" r="8" fill="none" stroke={cyan} strokeWidth="2.2" />
+          <circle cx="100" cy="96" r="3" fill={cyan} />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+/* Card 02 (Secure Web Deployment): glowing red cyber shield + padlock */
+function CyberShield() {
+  const red = "#ef4444";
+  return (
+    <svg
+      width="96" height="112" viewBox="0 0 96 112" fill="none"
+      aria-hidden
+      style={{
+        filter: `drop-shadow(0 10px 24px ${red}55) drop-shadow(0 0 12px ${red}77)`,
+        animation: "float-y 6s ease-in-out infinite",
+      }}
+    >
+      <defs>
+        <linearGradient id="shieldFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(239,68,68,0.28)" />
+          <stop offset="100%" stopColor="rgba(239,68,68,0.06)" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M48 6l34 13v24c0 26-15 44-34 57C29 87 14 69 14 43V19L48 6z"
+        fill="url(#shieldFill)" stroke={red} strokeWidth="3" strokeLinejoin="round"
+      />
+      <rect x="36" y="50" width="24" height="20" rx="3" fill="none" stroke={red} strokeWidth="3" />
+      <path d="M40 50v-6a8 8 0 0 1 16 0v6" fill="none" stroke={red} strokeWidth="3" />
+      <circle cx="48" cy="58" r="3" fill={red} />
+      <rect x="46.5" y="58" width="3" height="7" fill={red} />
+    </svg>
+  );
+}
+
 /* Per-card light theme + accent colour values.
    ink   = deep-navy heading colour, body = slate description colour,
-   accent = text-safe accent used for badges/bullets/watermark. */
+   accent = text-safe accent used for badges/bullets/watermark.
+   floatEl = optional inline-SVG accent that overlaps the frame. */
 const SVC_THEMES = [
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
@@ -270,6 +336,9 @@ const SVC_THEMES = [
     gridColor: "rgba(0,168,204,0.08)",
     Illustration: IllustrationSOC,
     SmallIcon: IconEye,
+    floatEl: <GearCluster />,
+    floatPos: { top: "6%", right: "-2%" } as React.CSSProperties,
+    chipLabel: "MONITORING: ACTIVE",
   },
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
@@ -280,6 +349,9 @@ const SVC_THEMES = [
     gridColor: "rgba(2,132,199,0.08)",
     Illustration: IllustrationWebDeploy,
     SmallIcon: IconSecureGlobe,
+    floatEl: <CyberShield />,
+    floatPos: { bottom: "4%", right: "2%" } as React.CSSProperties,
+    chipLabel: "INTEGRITY: 100%",
   },
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
@@ -487,18 +559,58 @@ function ServicesOverview() {
                     pointerEvents: "none",
                   }} />
 
-                  {/* ── Floating transparent illustration (no frame) ── */}
+                  {/* ── Glassmorphism illustration frame + floating accent ── */}
                   <div style={{
                     position: "relative", zIndex: 1,
-                    width: "100%", maxWidth: 370,
-                    padding: "1.25rem 1rem",
+                    width: "100%", maxWidth: 380,
                     animation: isVis ? "iso-rise 0.9s cubic-bezier(0.16,1,0.3,1) both" : "none",
                     opacity: isVis ? undefined : 0,
                   }}>
-                    <Illustration
-                      className="w-full h-auto relative"
-                      style={{ display: "block", maxHeight: 280, position: "relative", zIndex: 1, filter: "drop-shadow(0px 20px 30px rgba(0, 168, 204, 0.15))" } as React.CSSProperties}
-                    />
+                    {/* glass card */}
+                    <div style={{
+                      position: "relative",
+                      borderRadius: 16,
+                      border: "1px solid rgba(0, 168, 204, 0.3)",
+                      background: "linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(240,249,255,0.35) 100%)",
+                      backdropFilter: "blur(10px)",
+                      WebkitBackdropFilter: "blur(10px)",
+                      boxShadow: `inset 0 1px 0 rgba(255,255,255,0.6), 0 12px 30px -10px ${ct.accent}30`,
+                      padding: "1.75rem 1.25rem 1.25rem",
+                      overflow: "visible",
+                    }}>
+                      {/* glowing status badge (top-center) */}
+                      <div style={{
+                        position: "absolute", top: -13, left: "50%", transform: "translateX(-50%)",
+                        display: "inline-flex", alignItems: "center", gap: "0.4rem",
+                        fontFamily: "var(--font-mono)", fontSize: "0.55rem",
+                        letterSpacing: "0.16em", textTransform: "uppercase", whiteSpace: "nowrap",
+                        color: ct.accent, background: "rgba(255,255,255,0.92)",
+                        border: `1px solid ${ct.accent}55`, borderRadius: 999,
+                        padding: "0.28rem 0.8rem",
+                        boxShadow: `0 2px 10px -2px ${ct.accent}55, 0 0 0 3px rgba(255,255,255,0.6)`,
+                        zIndex: 4,
+                      }}>
+                        <span style={{
+                          width: 6, height: 6, borderRadius: "50%", background: ct.accent,
+                          boxShadow: `0 0 6px ${ct.accent}, 0 0 12px ${ct.accent}`, display: "inline-block",
+                        }} />
+                        SYS // ACTIVE
+                      </div>
+
+                      <Illustration
+                        className="w-full h-auto relative"
+                        style={{ display: "block", maxHeight: 260, position: "relative", zIndex: 1, filter: "drop-shadow(0px 20px 30px rgba(0, 168, 204, 0.15))" } as React.CSSProperties}
+                      />
+                    </div>
+
+                    {/* floating 3D-style SVG accent overlapping the frame */}
+                    {ct.floatEl && (
+                      <div aria-hidden style={{
+                        position: "absolute", zIndex: 3, pointerEvents: "none", ...ct.floatPos,
+                      }}>
+                        {ct.floatEl}
+                      </div>
+                    )}
                   </div>
 
                   {/* number watermark (behind frame) */}
@@ -513,25 +625,20 @@ function ServicesOverview() {
                   }}>
                     {svc.index}
                   </span>
-                  {/* status chip */}
+                  {/* right-aligned floating status badge */}
                   <div style={{
-                    position: "absolute", top: "1.25rem", right: "1.25rem",
+                    position: "absolute", top: "1.25rem", right: "1.25rem", zIndex: 4,
                     fontFamily: "var(--font-mono)", fontSize: "0.55rem",
-                    letterSpacing: "0.14em", textTransform: "uppercase",
-                    color: ct.accent, background: "rgba(255,255,255,0.85)",
+                    letterSpacing: "0.14em", textTransform: "uppercase", whiteSpace: "nowrap",
+                    color: ct.accent, background: "rgba(255,255,255,0.9)",
                     backdropFilter: "blur(12px)",
-                    border: `1px solid ${ct.accent}40`,
+                    border: `1px solid ${ct.accent}45`, borderRadius: 999,
                     padding: "0.3rem 0.75rem",
                     display: "flex", alignItems: "center", gap: "0.5rem",
-                    boxShadow: `0 2px 8px -2px ${ct.accent}25`,
+                    boxShadow: `0 4px 12px -3px ${ct.accent}35`,
                   }}>
-                    <span style={{
-                      width: 5, height: 5, borderRadius: "50%",
-                      background: ct.accent,
-                      boxShadow: `0 0 6px ${ct.accent}, 0 0 12px ${ct.accent}`,
-                      display: "inline-block",
-                    }} />
-                    SYS // ACTIVE
+                    <span className="pulse-dot" style={{ width: 5, height: 5, background: ct.accent }} />
+                    {ct.chipLabel ?? "SYS // ACTIVE"}
                   </div>
                   {/* Corner bracket decoration */}
                   <span aria-hidden style={{
@@ -560,11 +667,12 @@ function ServicesOverview() {
                   {/* badge / tagline */}
                   <div style={{
                     display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                    border: `1px solid ${ct.accent}55`, color: ct.accent,
-                    background: `${ct.accent}14`,
-                    padding: "0.3rem 0.85rem", borderRadius: 999,
+                    border: `1px solid ${ct.accent}66`, color: ct.accent,
+                    background: "rgba(255,255,255,0.7)",
+                    padding: "0.35rem 0.9rem", borderRadius: 999,
                     fontSize: "0.6rem", fontFamily: "var(--font-mono)",
                     letterSpacing: "0.18em", textTransform: "uppercase", width: "fit-content",
+                    boxShadow: `0 2px 8px -3px ${ct.accent}30`,
                     animation: isVis ? "tagline-in 0.55s 0.12s cubic-bezier(0.16,1,0.3,1) both" : "none",
                   }}>
                     <span style={{
@@ -610,10 +718,10 @@ function ServicesOverview() {
                           : "none",
                         opacity: isVis ? undefined : 0,
                       }}>
-                        <span style={{
-                          marginTop: "0.45rem", width: 16, height: 4,
-                          background: `${ct.accent}cc`, flexShrink: 0, display: "block",
-                        }} />
+                        <span aria-hidden style={{
+                          color: ct.accent, fontWeight: 700, lineHeight: 1.4,
+                          flexShrink: 0, fontFamily: "var(--font-mono)",
+                        }}>—</span>
                         <span style={{ color: ct.bullet }}>{b}</span>
                       </li>
                     ))}

@@ -408,6 +408,16 @@ a:hover, button:hover {
 }
 .float-y { animation: float-y 6s ease-in-out infinite; }
 
+/* Rotating gear accents (capabilities floating SVG) */
+@keyframes gear-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes gear-spin-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
 /* ── Service showcase animations ──────────────────────────────────── */
 @keyframes slide-in-next {
   from { opacity: 0; transform: translateX(48px) scale(0.97); }
