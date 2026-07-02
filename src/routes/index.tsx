@@ -375,11 +375,14 @@ function ServicesOverview() {
           <span className="mono text-[11px] uppercase tracking-[0.3em] text-signal">CAPABILITIES</span>
           <span className="w-8 h-px bg-signal opacity-70" />
         </div>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold">
+        <h2
+          className="text-4xl md:text-5xl lg:text-6xl font-display font-bold"
+          style={{ color: "#0f172a" }}
+        >
           Four Disciplines.<br />
-          <span className="text-signal">One Security-First Standard.</span>
+          <span style={{ color: "#0891b2" }}>One Security-First Standard.</span>
         </h2>
-        <p className="mt-4 text-muted-foreground text-lg leading-relaxed max-w-2xl">
+        <p className="mt-4 text-lg leading-relaxed max-w-2xl" style={{ color: "#475569" }}>
           Every engagement is held to the same principle: nothing ships until it's been
           evaluated the way an attacker would evaluate it. Scroll through to see how.
         </p>
