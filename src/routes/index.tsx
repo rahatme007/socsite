@@ -1094,6 +1094,13 @@ function CtaBand() {
             >
               View all services →
             </Link>
+            <Link
+              to="/contact"
+              className="mono text-[10px] uppercase tracking-widest inline-flex items-center justify-center gap-2 text-muted-foreground hover:text-signal transition-colors whitespace-nowrap"
+            >
+              <span className="live-dot" aria-hidden />
+              Free technical SEO audit — request one →
+            </Link>
           </div>
         </div>
       </div>
