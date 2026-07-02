@@ -4,6 +4,11 @@ export type ServiceSlug =
   | "technical-secure-seo"
   | "ai-agent-development";
 
+export interface ServiceWorkflowStep {
+  phase: string;
+  detail: string;
+}
+
 export interface Service {
   slug: ServiceSlug;
   index: string;
@@ -11,6 +16,11 @@ export interface Service {
   title: string;
   description: string;
   bullets: string[];
+  caseCategory: "SOC" | "Web" | "SEO" | "AI Agents";
+  intro: string;
+  workflow: ServiceWorkflowStep[];
+  tools: string[];
+  outcome: string;
 }
 
 export const services: Service[] = [
@@ -27,6 +37,34 @@ export const services: Service[] = [
       "Incident response & documentation",
       "Vulnerability assessment & remediation",
     ],
+    caseCategory: "SOC",
+    intro:
+      "Most environments don't lack logs — they lack signal. This engagement builds (or overhauls) your detection capability: instrumenting the right sources, writing detection logic mapped to real adversary behaviour, and putting a documented response process behind every alert so an incident becomes a procedure instead of a panic.",
+    workflow: [
+      {
+        phase: "Scope & Baseline",
+        detail:
+          "Inventory every log source and asset, map current detection coverage against MITRE ATT&CK, and agree a severity and escalation matrix before anything is deployed.",
+      },
+      {
+        phase: "Instrument",
+        detail:
+          "Deploy and tune the SIEM (Splunk or Wazuh), roll out Sysmon and forwarders, and wire in threat-intel enrichment so events arrive with context, not just noise.",
+      },
+      {
+        phase: "Detect & Triage",
+        detail:
+          "Author Sigma-based detection rules mapped to ATT&CK techniques, tune out false positives against your real traffic, and document a triage runbook for every alert class.",
+      },
+      {
+        phase: "Respond & Report",
+        detail:
+          "Contain and eradicate confirmed incidents, write the post-incident report, and deliver monthly coverage reports so you can watch detection measurably improve.",
+      },
+    ],
+    tools: ["Splunk", "Wazuh", "Sysmon", "Sigma", "MITRE ATT&CK", "TheHive", "MISP"],
+    outcome:
+      "A monitored environment with measurable coverage — in my lab and client work this standard has produced 60+ detection rules across 42 MITRE ATT&CK techniques and cut mean time-to-contain from 4 hours to 22 minutes.",
   },
   {
     slug: "secure-web-deployment",
@@ -41,6 +79,34 @@ export const services: Service[] = [
       "SSL/TLS implementation & enforcement",
       "DDoS mitigation & traffic filtering",
     ],
+    caseCategory: "Web",
+    intro:
+      "A deployment is a security decision, whether you make it deliberately or not. I build and harden the full path from DNS to origin under the assumption that the site will be scanned within hours of going live — because it will be.",
+    workflow: [
+      {
+        phase: "Threat-Model the Stack",
+        detail:
+          "Enumerate the real exposure: open ports, DNS records, TLS posture, third-party scripts, and CI/CD secrets. Nothing gets hardened until it's mapped.",
+      },
+      {
+        phase: "Harden the Base",
+        detail:
+          "Apply CIS-benchmark hardening to the OS and web server, enforce key-only SSH and least-privilege access, and lock down every service that doesn't need to be public.",
+      },
+      {
+        phase: "Encrypt & Shield",
+        detail:
+          "Enforce TLS 1.3 with HSTS, deploy WAF rules and rate limiting at the edge, and put DDoS mitigation in front of the origin before launch — not after the first attack.",
+      },
+      {
+        phase: "Verify & Hand Over",
+        detail:
+          "Re-scan with independent tooling, close what's found, and codify the entire hardened state in Terraform so it's reproducible — with documentation your team can actually operate.",
+      },
+    ],
+    tools: ["Nginx", "Cloudflare", "Terraform", "Let's Encrypt", "Fail2ban", "Lynis", "OWASP ZAP"],
+    outcome:
+      "Infrastructure that survives contact: the last client launch shipped with an A+ TLS grade, 92% of flagged vulnerabilities closed on re-scan, and zero minutes of downtime through launch week.",
   },
   {
     slug: "technical-secure-seo",
@@ -55,6 +121,34 @@ export const services: Service[] = [
       "Core Web Vitals & performance",
       "Structured data & sitemap integrity",
     ],
+    caseCategory: "SEO",
+    intro:
+      "I audit a website the way I audit an attack surface — because to a crawler and an attacker, they're the same thing. Technical SEO done this way fixes rankings and closes exposure at the same time: staging leaks, misconfigured directives, slow render paths, and duplicate content are all the same class of problem.",
+    workflow: [
+      {
+        phase: "Crawl & Expose",
+        detail:
+          "Run a full technical crawl to see exactly what search engines see: indexation leaks, redirect chains, orphaned pages, duplicate content, and anything exposed that shouldn't be.",
+      },
+      {
+        phase: "Fix the Foundations",
+        detail:
+          "Rebuild the robots and sitemap strategy, enforce canonical URLs, implement structured data, and close every indexation leak — staging domains included.",
+      },
+      {
+        phase: "Accelerate",
+        detail:
+          "Refactor the render path, image pipeline, and caching strategy until every Core Web Vital is in the green on real mobile devices, not just lab runs.",
+      },
+      {
+        phase: "Monitor & Defend",
+        detail:
+          "Wire Search Console and Lighthouse checks into an ongoing report so gains hold, regressions get caught early, and nothing quietly re-leaks.",
+      },
+    ],
+    tools: ["Screaming Frog", "Lighthouse", "Search Console", "Schema.org", "Cloudflare", "Next.js"],
+    outcome:
+      "Rankings built on infrastructure that's fast and closed: the last audit delivered +38% organic traffic in 90 days, a 1.4s LCP, and zero remaining indexation leaks.",
   },
   {
     slug: "ai-agent-development",
@@ -69,6 +163,34 @@ export const services: Service[] = [
       "Data privacy-first architecture",
       "Deployment, monitoring & iteration",
     ],
+    caseCategory: "AI Agents",
+    intro:
+      "Most AI automation fails one of two ways: it doesn't actually save time, or it quietly becomes a data-leak vector. I build custom agents scoped to one real workflow, engineered against the OWASP LLM Top 10 from the first commit — so the automation compounds and the risk doesn't.",
+    workflow: [
+      {
+        phase: "Map the Workflow",
+        detail:
+          "Sit with the actual process — the tickets, logs, or CRM entries eating your team's hours — and define exactly what data the agent may touch and what permissions it needs. Nothing more.",
+      },
+      {
+        phase: "Design the Guardrails",
+        detail:
+          "Scoped tokens, field-level redaction, prompt-injection defenses, and output validation — designed before the first line of agent logic is written.",
+      },
+      {
+        phase: "Build & Integrate",
+        detail:
+          "Python and FastAPI service with vault-backed secrets, containerized deployment, and API integrations that authenticate as the user — never as a god-mode service account.",
+      },
+      {
+        phase: "Observe & Iterate",
+        detail:
+          "Full audit logging and OpenTelemetry tracing on every action, plus measured accuracy reviews so the agent improves on evidence, not vibes.",
+      },
+    ],
+    tools: ["Python", "FastAPI", "OpenAI API", "Docker", "Redis", "OAuth 2.0", "OpenTelemetry"],
+    outcome:
+      "Automation with receipts: a triage agent that cut manual alert review by 68%, and a CRM assistant that ran six months in production with zero PII incidents and a complete audit trail.",
   },
 ];
 
@@ -230,4 +352,84 @@ export const certs = [
   "CompTIA CySA+",
   "TryHackMe — Top 1%",
   "AWS Cloud Practitioner",
+];
+
+/* ── Tool role descriptions — powers the interactive Stack Matrix &
+      service toolchain tooltips ─────────────────────────────────────── */
+export const toolRoles: Record<string, string> = {
+  // SOC & Detection
+  Splunk: "Primary SIEM — log ingestion, correlation searches, and dashboards used for alert triage.",
+  "ELK / Wazuh": "Open-source detection stack for HIDS, log analysis, and cost-sensitive deployments.",
+  Wazuh: "Open-source SIEM/HIDS used in detection labs and client deployments.",
+  Sysmon: "Deep Windows endpoint telemetry — the raw material for high-fidelity detections.",
+  Sigma: "Portable detection logic — written once, converted to any SIEM's query language.",
+  "Sigma rules": "Portable detection logic — written once, converted to any SIEM's query language.",
+  "IDS/IPS": "Network detection layer — signatures tuned against live traffic, not left at defaults.",
+  "MITRE ATT&CK": "Coverage map — every detection rule is tagged to a specific adversary technique.",
+  "Log correlation": "Joining endpoint, network, and auth events into a single incident timeline.",
+  "Incident triage": "Structured severity assessment with documented runbooks and escalation paths.",
+  TheHive: "Case management — every incident tracked, assigned, and auditable.",
+  MISP: "Threat-intel platform feeding IOCs into detection and enrichment.",
+  // Secure Infrastructure
+  "Linux hardening": "CIS-benchmark server baselines — services, permissions, kernel parameters.",
+  "TLS 1.3": "Modern encryption enforced with HSTS and a strict cipher policy on every deploy.",
+  "DNS security": "DNSSEC, CAA records, and subdomain-takeover prevention.",
+  "AWS / Azure": "Cloud infrastructure built with least-privilege IAM and audited configurations.",
+  Nginx: "Hardened reverse proxy — security headers, rate limits, TLS termination.",
+  Cloudflare: "Edge shield — WAF, DDoS mitigation, and caching in front of every origin.",
+  Terraform: "Infrastructure as code — the hardened state is reproducible, not tribal knowledge.",
+  "Let's Encrypt": "Automated certificate issuance and renewal — encryption that never lapses.",
+  Fail2ban: "Host-level brute-force lockout on every exposed service.",
+  Lynis: "Host audit scanner used to verify hardening before handover.",
+  "OWASP ZAP": "Web application scanning to verify the deployment resists common attacks.",
+  // SEO
+  "Screaming Frog": "Full-site crawler — surfaces exactly what search engines (and attackers) see.",
+  Lighthouse: "Core Web Vitals measurement, run continuously to prevent regressions.",
+  "Search Console": "Indexation monitoring and query-level visibility after every fix ships.",
+  "Schema.org": "Structured data implementation so results earn rich snippets.",
+  "Next.js": "Framework of choice for fast, crawlable, secure client builds.",
+  // Automation & AI
+  Python: "Primary language for automation, security tooling, and agent backends.",
+  FastAPI: "Lightweight Python API layer for agent services.",
+  "OpenAI API": "LLM backbone — always called with scoped keys and validated outputs.",
+  Docker: "Containerized deploys — reproducible, isolated, and disposable.",
+  Redis: "Fast state and queue layer for agent pipelines.",
+  "OAuth 2.0": "Per-user token exchange so agents act with the user's permissions — never more.",
+  "REST / GraphQL": "API integration with scoped credentials and strict input validation.",
+  "LLM workflows": "Agent pipelines with guardrails, evals, and human-in-the-loop checkpoints.",
+  "OWASP LLM Top 10": "The design checklist for every AI build — prompt injection through data leakage.",
+  "Secrets vaulting": "No credentials in code — vault-backed injection at runtime.",
+  OpenTelemetry: "Tracing and audit visibility across every automated action.",
+  // Frameworks
+  "NIST CSF": "The framework I use to assess and communicate security posture.",
+  "OWASP Top 10": "Baseline for every web application security review.",
+  "CIS Benchmarks": "Hardening standards applied to servers and cloud accounts.",
+};
+
+/* ── Client testimonials (placeholder copy pending publication approval) ── */
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  metric: string;
+  metricLabel: string;
+}
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "We expected the usual pre-launch security scramble. Instead, the re-scan came back with 92% of flagged vulnerabilities closed, an A+ TLS grade, and the site never went down once during launch week. Everything was documented well enough that our own team can maintain it.",
+    name: "Operations Director",
+    role: "E-commerce client · hardened launch engagement",
+    metric: "92%",
+    metricLabel: "Vulns closed on re-scan",
+  },
+  {
+    quote:
+      "The triage agent cut our alert review workload by more than two-thirds without ever touching data it shouldn't. Six months in production, zero incidents, and a full audit trail on every action. It's rare to get automation speed and security discipline in the same build.",
+    name: "IT Security Lead",
+    role: "SaaS client · secure AI agent engagement",
+    metric: "68%",
+    metricLabel: "Triage volume reduced",
+  },
 ];
