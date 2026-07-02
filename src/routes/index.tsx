@@ -328,20 +328,40 @@ function ServicesOverview() {
 
   return (
     <section
-      className="border-t border-hairline aurora-bg"
-      style={{ background: "var(--background)", position: "relative" }}
+      className="border-t"
+      style={{
+        background: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+        borderColor: "rgba(0,168,204,0.12)",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      {/* ── Ambient glows ── */}
+      {/* ── Hero-style cyber grid backdrop ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage:
+          "linear-gradient(to right, rgba(2,132,199,0.06) 1px, transparent 1px)," +
+          "linear-gradient(to bottom, rgba(2,132,199,0.06) 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+        maskImage: "radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 80%)",
+        WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 80%)",
+      }} />
+      {/* ── Subtle dotted node / connector network ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        backgroundImage:
+          "radial-gradient(circle at 18% 25%, rgba(0,168,204,0.16) 0, transparent 2px)," +
+          "radial-gradient(circle at 72% 38%, rgba(0,168,204,0.14) 0, transparent 2px)," +
+          "radial-gradient(circle at 42% 78%, rgba(0,168,204,0.12) 0, transparent 2px)," +
+          "linear-gradient(115deg, transparent 49.6%, rgba(0,168,204,0.05) 49.6%, rgba(0,168,204,0.05) 50.4%, transparent 50.4%)",
+        backgroundSize: "320px 320px, 280px 280px, 360px 360px, 200px 200px",
+        opacity: 0.7,
+      }} />
+      {/* ── Soft top glow to blend into the hero ── */}
       <div aria-hidden style={{
         position: "absolute", top: 0, left: "25%",
-        width: 600, height: 600,
-        background: "radial-gradient(circle, rgba(0,217,255,0.05) 0%, transparent 70%)",
-        filter: "blur(60px)", pointerEvents: "none",
-      }} />
-      <div aria-hidden style={{
-        position: "absolute", top: "30%", right: "10%",
-        width: 400, height: 400,
-        background: "radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%)",
+        width: 600, height: 500,
+        background: "radial-gradient(circle, rgba(0,168,204,0.08) 0%, transparent 70%)",
         filter: "blur(60px)", pointerEvents: "none",
       }} />
 
@@ -432,7 +452,7 @@ function ServicesOverview() {
                   }}>
                     <div style={{
                       position: "absolute", top: 0, bottom: 0, width: 280,
-                      background: `linear-gradient(to right,transparent,${ct.accent}50,transparent)`,
+                      background: `linear-gradient(to right,transparent,${ct.accent}22,transparent)`,
                       animation: "scan-h 0.9s cubic-bezier(0.4,0,0.6,1) both",
                     }} />
                   </div>
