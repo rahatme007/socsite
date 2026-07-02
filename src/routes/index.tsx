@@ -2,7 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { Panel, SectionLabel, StatusPulse } from "@/components/site-chrome";
 import { ParticleBackground } from "@/components/particle-background";
-import { services, caseStudies, skills, certs } from "@/content/site-data";
+import {
+  services,
+  caseStudies,
+  skills,
+  certs,
+  toolRoles,
+  testimonials,
+} from "@/content/site-data";
 import {
   IconRadar,
   IconShieldLock,
