@@ -338,6 +338,7 @@ const SVC_THEMES = [
     SmallIcon: IconEye,
     floatEl: <GearCluster />,
     floatPos: { top: "6%", right: "-2%" } as React.CSSProperties,
+    chipLabel: "MONITORING: ACTIVE",
   },
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
@@ -350,6 +351,7 @@ const SVC_THEMES = [
     SmallIcon: IconSecureGlobe,
     floatEl: <CyberShield />,
     floatPos: { bottom: "4%", right: "2%" } as React.CSSProperties,
+    chipLabel: "INTEGRITY: 100%",
   },
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
@@ -623,25 +625,20 @@ function ServicesOverview() {
                   }}>
                     {svc.index}
                   </span>
-                  {/* status chip */}
+                  {/* right-aligned floating status badge */}
                   <div style={{
-                    position: "absolute", top: "1.25rem", right: "1.25rem",
+                    position: "absolute", top: "1.25rem", right: "1.25rem", zIndex: 4,
                     fontFamily: "var(--font-mono)", fontSize: "0.55rem",
-                    letterSpacing: "0.14em", textTransform: "uppercase",
-                    color: ct.accent, background: "rgba(255,255,255,0.85)",
+                    letterSpacing: "0.14em", textTransform: "uppercase", whiteSpace: "nowrap",
+                    color: ct.accent, background: "rgba(255,255,255,0.9)",
                     backdropFilter: "blur(12px)",
-                    border: `1px solid ${ct.accent}40`,
+                    border: `1px solid ${ct.accent}45`, borderRadius: 999,
                     padding: "0.3rem 0.75rem",
                     display: "flex", alignItems: "center", gap: "0.5rem",
-                    boxShadow: `0 2px 8px -2px ${ct.accent}25`,
+                    boxShadow: `0 4px 12px -3px ${ct.accent}35`,
                   }}>
-                    <span style={{
-                      width: 5, height: 5, borderRadius: "50%",
-                      background: ct.accent,
-                      boxShadow: `0 0 6px ${ct.accent}, 0 0 12px ${ct.accent}`,
-                      display: "inline-block",
-                    }} />
-                    SYS // ACTIVE
+                    <span className="pulse-dot" style={{ width: 5, height: 5, background: ct.accent }} />
+                    {ct.chipLabel ?? "SYS // ACTIVE"}
                   </div>
                   {/* Corner bracket decoration */}
                   <span aria-hidden style={{
