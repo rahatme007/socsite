@@ -257,33 +257,47 @@ function AboutSnapshot() {
 
 /* ─── SERVICES OVERVIEW ─────────────────────────────────────────────── */
 
-/* Per-card dark gradient theme + accent colour values */
+/* Per-card light theme + accent colour values.
+   ink   = deep-navy heading colour, body = slate description colour,
+   accent = text-safe accent used for badges/bullets/watermark. */
 const SVC_THEMES = [
   {
-    cardBg: "linear-gradient(135deg, #021420 0%, #032233 60%, #010c14 100%)",
-    accent: "#00D9FF",
-    gridColor: "rgba(0,217,255,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0891b2",
+    ink: "#0f172a",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(0,168,204,0.08)",
     Illustration: IllustrationSOC,
     SmallIcon: IconEye,
   },
   {
-    cardBg: "linear-gradient(135deg, #1c1100 0%, #2e1b00 60%, #110a00 100%)",
-    accent: "#FF9A3C",
-    gridColor: "rgba(255,154,60,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0284c7",
+    ink: "#022347",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(2,132,199,0.08)",
     Illustration: IllustrationWebDeploy,
     SmallIcon: IconSecureGlobe,
   },
   {
-    cardBg: "linear-gradient(135deg, #01180a 0%, #022910 60%, #010e05 100%)",
-    accent: "#4ade80",
-    gridColor: "rgba(74,222,128,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0891b2",
+    ink: "#0f172a",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(0,168,204,0.08)",
     Illustration: IllustrationSEO,
     SmallIcon: IconSignal,
   },
   {
-    cardBg: "linear-gradient(135deg, #0d0520 0%, #1b0d3c 60%, #070210 100%)",
-    accent: "#a78bfa",
-    gridColor: "rgba(167,139,250,0.07)",
+    cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
+    accent: "#0284c7",
+    ink: "#022347",
+    body: "#475569",
+    bullet: "#334155",
+    gridColor: "rgba(2,132,199,0.08)",
     Illustration: IllustrationAI,
     SmallIcon: IconAISecure,
   },
