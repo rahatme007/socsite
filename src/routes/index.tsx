@@ -101,6 +101,14 @@ function Hero() {
             </Link>
           </div>
 
+          <Link
+            to="/services"
+            className="reveal mt-5 inline-flex items-center gap-2 mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-signal transition-colors"
+          >
+            <span className="live-dot" aria-hidden />
+            Free resource — Secure Web Deployment Checklist →
+          </Link>
+
           <div className="reveal mt-10 border-t border-hairline pt-5 flex flex-wrap items-center gap-6">
             <StatusPulse />
             <span className="hidden sm:block w-px h-4 bg-hairline" />
