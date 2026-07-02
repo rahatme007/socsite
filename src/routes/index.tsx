@@ -336,6 +336,8 @@ const SVC_THEMES = [
     gridColor: "rgba(0,168,204,0.08)",
     Illustration: IllustrationSOC,
     SmallIcon: IconEye,
+    floatEl: <GearCluster />,
+    floatPos: { top: "6%", right: "-2%" } as React.CSSProperties,
   },
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
@@ -346,6 +348,8 @@ const SVC_THEMES = [
     gridColor: "rgba(2,132,199,0.08)",
     Illustration: IllustrationWebDeploy,
     SmallIcon: IconSecureGlobe,
+    floatEl: <CyberShield />,
+    floatPos: { bottom: "4%", right: "2%" } as React.CSSProperties,
   },
   {
     cardBg: "linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)",
